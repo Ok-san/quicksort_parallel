@@ -100,6 +100,7 @@ void quicksortTasks(int* arr, unsigned int start, unsigned int end) {
     }
 }
 
+/*<имя_входного_файла> <имя_выходного_файла> <кол-во_потоков> <реализация>*/
 int main(int argc, char* argv[])
 {
     /*подано корректное число аргументов*/
@@ -155,14 +156,14 @@ int main(int argc, char* argv[])
 
             switch (options)
             {
+            //без openmp
             case 0:
                 start = omp_get_wtime();
                 quicksort(arr, 0, size - 1);
                 end = omp_get_wtime();
                 break;
-
+            //с применением секций
             case 1:
-                /*omp_set_num_threads(numThreads);*/
                 omp_set_max_active_levels(log2(numThreads));
 
                 start = omp_get_wtime();
@@ -171,7 +172,7 @@ int main(int argc, char* argv[])
 
                 actualThreads = numThreads;
                 break;
-
+            //с применением задач
             case 2:
                 start = omp_get_wtime();
 #pragma omp parallel num_threads(numThreads) if(numThreads>1)
