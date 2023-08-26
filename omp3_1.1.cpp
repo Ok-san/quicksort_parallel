@@ -43,14 +43,6 @@ void quicksort(int* arr, unsigned int start, unsigned int end) {
             end = pivotIndex - 1;
         }
     }
-
-    /* unsigned int pivotIndex = partition(arr, start, end);
-
-      if(pivotIndex<end)
-          quicksort(arr, pivotIndex, end);
-
-      if(start<pivotIndex-1)
-          quicksort(arr, start, pivotIndex - 1);*/
 }
 
 void quicksortSections(int* arr, unsigned int start, unsigned int end, int numThreads) {
@@ -90,7 +82,6 @@ void quicksortTasks(int* arr, unsigned int start, unsigned int end) {
     if (start >= end) return;
 
     unsigned int pivotIndex = partition(arr, start, end);
-
     if (end + 1 - start < correctSizeTask || ((end + 1 - pivotIndex < correctSizeTask) && (pivotIndex - start < correctSizeTask))) {
         if (pivotIndex < end)
             quicksort(arr, pivotIndex, end);
@@ -98,7 +89,6 @@ void quicksortTasks(int* arr, unsigned int start, unsigned int end) {
         if (start < pivotIndex - 1)
             quicksort(arr, start, pivotIndex - 1);
     }
-
     else {
 #pragma omp task
         {
